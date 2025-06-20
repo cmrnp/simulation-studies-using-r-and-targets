@@ -12,7 +12,7 @@ book:
         - "School of Mathematics and Statistics, The University of Melbourne"
         - "Clinical Epidemiology and Biostatistics Unit, Murdoch Children's Research Institute"
   date: today
-  date-format: "d MMMM YYYY"
+  date-format: "D MMMM YYYY"
   chapters:
     - index.qmd
     - design.qmd
