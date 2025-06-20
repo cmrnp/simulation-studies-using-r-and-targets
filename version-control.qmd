@@ -1,0 +1,24 @@
+# Side quest: Version control
+
+Before we get too far into this, let's introduce version control to keep ourselves sane
+
+## Using GitHub to track changes to your code
+
+Make a GitHub account if you don't already have one (this is good life advice anyway)
+
+Make a GitHub repository for your simulation. It can be private to start with, if you want, but Open Source Is Cool
+
+Checking out the repository, committing code, pushing, pulling
+
+Provide handy website references to further detail
+
+## Using renv to track R package versions
+
+Several options available now for ensuring reproducibility of R and R package version. Common choices: renv, rix, ...?
+
+How to set up renv for a project
+
+How to install new packages, update package versions, update renv lock file, restore renv from a fresh checkout
+
+Note that renv tracks R package versions but doesn't manage R versions itself (but it will give a warning if the R version you're using is different from the one used to snapshot)
+

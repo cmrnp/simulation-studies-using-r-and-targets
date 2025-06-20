@@ -1,0 +1,8 @@
+# Simulations with multiple scenarios
+
+## Adding more data generating processes
+
+## Adding more estimators
+
+## Visualising the results of a simulation
+

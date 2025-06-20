@@ -1,0 +1,8 @@
+# Introduction {.unnumbered}
+
+**This is currently a work in progress, more bullet points to be fleshed out than anything useful.**
+
+This is a guide to coding simulation studies in R, in a way that can scale from the quick and dirty (running on your laptop) to the larger scale (running on a high-performance computing environment), making the results as reproducible as possible without adding too much pain.
+
+The focus is on how to structure your R code, not the finer details of simulating data nor analysing simulated data, but we will provide a worked example with a starting point for doing this.
+

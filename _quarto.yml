@@ -1,0 +1,55 @@
+project:
+  type: book
+
+book:
+  title: "Simulation studies the easy way, using R and targets"
+  author: 
+    - name: "Cameron James Patrick"
+      orcid: "0000-0002-4677-535X"
+      email: "cameron@largestprime.net"
+      affiliation:
+        - "School of Mathematics and Statistics, The University of Melbourne"
+        - "Clinical Epidemiology and Biostatistics Unit, Murdoch Children's Research Institute"
+  date: today
+  date-format: "d MMMM YYYY"
+  chapters:
+    - index.qmd
+    - design.qmd
+    - simple-simulation.qmd
+    - version-control.qmd
+    - using-targets.qmd
+    - multiple-scenarios.qmd
+    - parallel-processing.qmd
+    - references.qmd
+
+bibliography: references.yaml
+
+csl: apa.csl
+
+execute:
+  echo: true
+  message: false
+  warning: false
+  fig-width: 5.5
+  fig-height: 3.5
+  cache: false
+
+format:
+  html:
+    theme: 
+      - simplex
+      - brand
+    fontsize: 1.2em
+    linestretch: 1.7
+    number-sections: true
+    number-depth: 3
+    toc: true
+    toc-depth: 3
+    mainfont: Helvetica Neue, Helvetica, Arial, sans
+    monofont: Cascadia Mono, Menlo, Consolas, Courier New, Courier
+    backgroundcolor: "white"
+    fontcolor: "#323232"
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 130

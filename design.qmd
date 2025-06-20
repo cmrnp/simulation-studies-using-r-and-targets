@@ -1,0 +1,19 @@
+# Designing a simulation study
+
+Before you start coding your simulation, you should have a plan for what you intend to achieve and how you intend to achieve it. A good way to plan a simulation study is to use the "ADEMP" structure [@morris2019usingsimulationstudies]: aims, data generating mechanism, estimand, methods, performance measures.
+
+- **Aims:** What is your simulation study trying to explore? Why are you even doing it?
+
+- **Data generating mechanism:** What process will you use to generate simulated datasets? Often it is useful to think in terms of a DAG and regression models here.
+
+- **Estimand:** What is the quantity of interest to be estimated? For example, the average treatment effect.
+
+- **Methods:** What statistical methods will be used to calculate an estimate from the generated data?
+
+- **Performance measures:** How will you summarise the results of applying the methods to the many generated datasets?
+
+It's a good idea to prepare a design document for your simulation where you address each of these items.
+
+## Case study
+
+What's a fun example to use here? Maybe demonstrate the CLT speed of converge to normality?

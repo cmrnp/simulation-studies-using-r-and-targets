@@ -1,0 +1,11 @@
+# Using the targets package
+
+We can make life easier by using the *targets* package
+
+Takes care of random seeds for us too
+
+## File structure of a targets project
+
+## Writing your target script file, _targets.R
+
+## Running your pipeline

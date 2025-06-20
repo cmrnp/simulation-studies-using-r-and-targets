@@ -1,0 +1,14 @@
+# Speeding it up with parallel processing
+
+GIVE IT MOAR CORES, MAKE IT MOAR FAST
+
+Using *targets* with the *crew* package
+
+## Multi-core processing on a single computer
+
+
+
+## Taking advantage of high-performance computing clusters
+
+
+## Automatic switching

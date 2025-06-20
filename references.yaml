@@ -1,0 +1,99 @@
+---
+references:
+- id: burton2006designsimulationstudies
+  accessed:
+    - year: 2023
+      month: 5
+      day: 30
+  author:
+    - family: Burton
+      given: Andrea
+    - family: Altman
+      given: Douglas G.
+    - family: Royston
+      given: Patrick
+    - family: Holder
+      given: Roger L.
+  citation-key: burton2006designsimulationstudies
+  container-title: Statistics in Medicine
+  container-title-short: Statist. Med.
+  DOI: 10.1002/sim.2673
+  ISSN: 02776715, 10970258
+  issue: '24'
+  issued:
+    - year: 2006
+      month: 12
+      day: 30
+  language: en
+  page: 4279-4292
+  source: DOI.org (Crossref)
+  title: The design of simulation studies in medical statistics
+  type: article-journal
+  URL: https://onlinelibrary.wiley.com/doi/10.1002/sim.2673
+  volume: '25'
+
+- id: morris2019usingsimulationstudies
+  accessed:
+    - year: 2023
+      month: 5
+      day: 30
+  author:
+    - family: Morris
+      given: Tim P.
+    - family: White
+      given: Ian R.
+    - family: Crowther
+      given: Michael J.
+  citation-key: morris2019usingsimulationstudies
+  container-title: Statistics in Medicine
+  container-title-short: Statistics in Medicine
+  DOI: 10.1002/sim.8086
+  ISSN: 0277-6715, 1097-0258
+  issue: '11'
+  issued:
+    - year: 2019
+      month: 5
+      day: 20
+  language: en
+  page: 2074-2102
+  source: DOI.org (Crossref)
+  title: Using simulation studies to evaluate statistical methods
+  type: article-journal
+  URL: https://onlinelibrary.wiley.com/doi/10.1002/sim.8086
+  volume: '38'
+
+- id: white2024howchecksimulation
+  abstract: |-
+    Abstract
+                Simulation studies are powerful tools in epidemiology and biostatistics, but they can be hard to conduct successfully. Sometimes unexpected results are obtained. We offer advice on how to check a simulation study when this occurs, and how to design and conduct the study to give results that are easier to check. Simulation studies should be designed to include some settings in which answers are already known. They should be coded in stages, with data-generating mechanisms checked before simulated data are analysed. Results should be explored carefully, with scatterplots of standard error estimates against point estimates surprisingly powerful tools. Failed estimation and outlying estimates should be identified and dealt with by changing data-generating mechanisms or coding realistic hybrid analysis procedures. Finally, we give a series of ideas that have been useful to us in the past for checking unexpected results. Following our advice may help to prevent errors and to improve the quality of published simulation studies.
+  accessed:
+    - year: 2024
+      month: 5
+      day: 30
+  author:
+    - family: White
+      given: Ian R
+    - family: Pham
+      given: Tra My
+    - family: Quartagno
+      given: Matteo
+    - family: Morris
+      given: Tim P
+  citation-key: white2024howchecksimulation
+  container-title: International Journal of Epidemiology
+  DOI: 10.1093/ije/dyad134
+  ISSN: 0300-5771, 1464-3685
+  issue: '1'
+  issued:
+    - year: 2024
+      month: 2
+      day: 1
+  language: en
+  license: https://creativecommons.org/licenses/by/4.0/
+  page: dyad134
+  source: DOI.org (Crossref)
+  title: How to check a simulation study
+  type: article-journal
+  URL: https://academic.oup.com/ije/article/doi/10.1093/ije/dyad134/7313663
+  volume: '53'
+...

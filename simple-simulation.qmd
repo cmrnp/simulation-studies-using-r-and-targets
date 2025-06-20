@@ -1,0 +1,85 @@
+---
+execute: 
+  echo: true
+---
+
+# Coding a simple simulation
+
+The structure of the code for a simulation study usually looks something like this:
+
+1. Generate a random dataset
+
+2. Perform some statistical method on that dataset to derive a quantity of interest
+
+3. Repeat steps 1 and 2 many times, say 10,000 times
+
+4. Steps 1 to 3 may be repeated with multiple scenarios or parameters used to generate the data, and multiple methods used to derive estimates from the generated data
+
+5. Calculate summaries of the results for each scenario and method of estimation
+
+Some of these steps correspond closely to the items in the ADEMP structure: step 1 is "D" (data generating mechanism), step 2 is "M" (methods to evaluate), step 5 is "P" (performance measures).
+
+## Generating a single simulated dataset
+
+```{r}
+library(tidyverse)
+generate_sim_data <- function(n) {
+  tibble(
+    x = rexp(n, 1)
+  )
+}
+```
+
+## Analyse a single simulated dataset
+
+```{r}
+analyse_sim_data <- function(dat) {
+  result <- t.test(dat$x)
+  tibble(
+    estimate = result$estimate,
+    conf.low = result$conf.int[1],
+    conf.high = result$conf.int[2]
+  )
+}
+```
+
+## Testing it out
+
+### Running it once
+
+```{r}
+dat <- generate_sim_data(10)
+print(dat)
+analyse_sim_data(dat)
+```
+
+### Running it many times
+
+
+```{r}
+sim_result <- 
+  list_rbind(
+    map(
+      1:10, 
+      \(n) analyse_sim_data(generate_sim_data(10))
+    ),
+    names_to = "rep"
+  )
+print(sim_result)
+```
+
+## Examining the results
+
+### Calculating summaries
+
+### Saving the results to a file
+
+## Reproducibility: thinking about random seeds
+
+You could just set the seed once at the start
+
+Then if anything changes
+
+Also it's harder to split
+
+We'll have a better solution to this, using the *targets* package, in the next section
