@@ -22,6 +22,12 @@ Some of these steps correspond closely to the items in the ADEMP structure: step
 ## Generating a single simulated dataset
 
 ```{r}
+#| include: false
+# ensure reproducibility
+set.seed(42)
+```
+
+```{r}
 library(tidyverse)
 generate_sim_data <- function(n) {
   tibble(
