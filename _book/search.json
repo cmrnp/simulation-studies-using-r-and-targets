@@ -1,0 +1,202 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Simulation studies the easy way, using R and targets",
+    "section": "",
+    "text": "Introduction\nThis is currently a work in progress, more bullet points to be fleshed out than anything useful.\nThis is a guide to coding simulation studies in R, in a way that can scale from the quick and dirty (running on your laptop) to the larger scale (running on a high-performance computing environment), making the results as reproducible as possible without adding too much pain.\nThe focus is on how to structure your R code, not the finer details of simulating data nor analysing simulated data, but we will provide a worked example with a starting point for doing this.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "design.html",
+    "href": "design.html",
+    "title": "1  Designing a simulation study",
+    "section": "",
+    "text": "1.1 Case study\nBefore you start coding your simulation, you should have a plan for what you intend to achieve and how you intend to achieve it. A good way to plan a simulation study is to use the “ADEMP” structure (Morris et al., 2019): aims, data generating mechanism, estimand, methods, performance measures.\nIt’s a good idea to prepare a design document for your simulation where you address each of these items.\nWhat’s a fun example to use here? Maybe demonstrate the CLT speed of converge to normality?",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Designing a simulation study</span>"
+    ]
+  },
+  {
+    "objectID": "design.html#case-study",
+    "href": "design.html#case-study",
+    "title": "1  Designing a simulation study",
+    "section": "",
+    "text": "Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in Medicine, 38(11), 2074–2102. https://doi.org/10.1002/sim.8086",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Designing a simulation study</span>"
+    ]
+  },
+  {
+    "objectID": "simple-simulation.html",
+    "href": "simple-simulation.html",
+    "title": "2  Coding a simple simulation",
+    "section": "",
+    "text": "2.1 Generating a single simulated dataset\nThe structure of the code for a simulation study usually looks something like this:\nSome of these steps correspond closely to the items in the ADEMP structure: step 1 is “D” (data generating mechanism), step 2 is “M” (methods to evaluate), step 5 is “P” (performance measures).\nlibrary(tidyverse)\ngenerate_sim_data &lt;- function(n) {\n  tibble(\n    x = rexp(n, 1)\n  )\n}",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Coding a simple simulation</span>"
+    ]
+  },
+  {
+    "objectID": "simple-simulation.html#analyse-a-single-simulated-dataset",
+    "href": "simple-simulation.html#analyse-a-single-simulated-dataset",
+    "title": "2  Coding a simple simulation",
+    "section": "2.2 Analyse a single simulated dataset",
+    "text": "2.2 Analyse a single simulated dataset\n\nanalyse_sim_data &lt;- function(dat) {\n  result &lt;- t.test(dat$x)\n  tibble(\n    estimate = result$estimate,\n    conf.low = result$conf.int[1],\n    conf.high = result$conf.int[2]\n  )\n}",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Coding a simple simulation</span>"
+    ]
+  },
+  {
+    "objectID": "simple-simulation.html#testing-it-out",
+    "href": "simple-simulation.html#testing-it-out",
+    "title": "2  Coding a simple simulation",
+    "section": "2.3 Testing it out",
+    "text": "2.3 Testing it out\n\n2.3.1 Running it once\n\ndat &lt;- generate_sim_data(10)\nprint(dat)\n\n# A tibble: 10 × 1\n        x\n    &lt;dbl&gt;\n 1 2.30  \n 2 0.0292\n 3 0.274 \n 4 3.36  \n 5 2.17  \n 6 1.72  \n 7 1.54  \n 8 1.52  \n 9 0.377 \n10 0.187 \n\nanalyse_sim_data(dat)\n\n# A tibble: 1 × 3\n  estimate conf.low conf.high\n     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1     1.35    0.556      2.14\n\n\n\n\n2.3.2 Running it many times\n\nsim_result &lt;- \n  list_rbind(\n    map(\n      1:10, \n      \\(n) analyse_sim_data(generate_sim_data(10))\n    ),\n    names_to = \"rep\"\n  )\nprint(sim_result)\n\n# A tibble: 10 × 4\n     rep estimate conf.low conf.high\n   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n 1     1    1.01     0.401     1.63 \n 2     2    1.12     0.389     1.85 \n 3     3    1.56     0.687     2.43 \n 4     4    1.09     0.489     1.69 \n 5     5    1.68     0.283     3.08 \n 6     6    0.542    0.358     0.726\n 7     7    0.772    0.254     1.29 \n 8     8    0.960    0.431     1.49 \n 9     9    0.636    0.305     0.967\n10    10    0.975    0.334     1.62",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Coding a simple simulation</span>"
+    ]
+  },
+  {
+    "objectID": "simple-simulation.html#examining-the-results",
+    "href": "simple-simulation.html#examining-the-results",
+    "title": "2  Coding a simple simulation",
+    "section": "2.4 Examining the results",
+    "text": "2.4 Examining the results\n\n2.4.1 Calculating summaries\n\n\n2.4.2 Saving the results to a file",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Coding a simple simulation</span>"
+    ]
+  },
+  {
+    "objectID": "simple-simulation.html#reproducibility-thinking-about-random-seeds",
+    "href": "simple-simulation.html#reproducibility-thinking-about-random-seeds",
+    "title": "2  Coding a simple simulation",
+    "section": "2.5 Reproducibility: thinking about random seeds",
+    "text": "2.5 Reproducibility: thinking about random seeds\nYou could just set the seed once at the start\nThen if anything changes\nAlso it’s harder to split\nWe’ll have a better solution to this, using the targets package, in the next section",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Coding a simple simulation</span>"
+    ]
+  },
+  {
+    "objectID": "version-control.html",
+    "href": "version-control.html",
+    "title": "3  Side quest: Version control",
+    "section": "",
+    "text": "3.1 Using GitHub to track changes to your code\nBefore we get too far into this, let’s introduce version control to keep ourselves sane\nMake a GitHub account if you don’t already have one (this is good life advice anyway)\nMake a GitHub repository for your simulation. It can be private to start with, if you want, but Open Source Is Cool\nChecking out the repository, committing code, pushing, pulling\nProvide handy website references to further detail",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Side quest: Version control</span>"
+    ]
+  },
+  {
+    "objectID": "version-control.html#using-renv-to-track-r-package-versions",
+    "href": "version-control.html#using-renv-to-track-r-package-versions",
+    "title": "3  Side quest: Version control",
+    "section": "3.2 Using renv to track R package versions",
+    "text": "3.2 Using renv to track R package versions\nSeveral options available now for ensuring reproducibility of R and R package version. Common choices: renv, rix, …?\nHow to set up renv for a project\nHow to install new packages, update package versions, update renv lock file, restore renv from a fresh checkout\nNote that renv tracks R package versions but doesn’t manage R versions itself (but it will give a warning if the R version you’re using is different from the one used to snapshot)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Side quest: Version control</span>"
+    ]
+  },
+  {
+    "objectID": "using-targets.html",
+    "href": "using-targets.html",
+    "title": "4  Using the targets package",
+    "section": "",
+    "text": "4.1 File structure of a targets project\nWe can make life easier by using the targets package\nTakes care of random seeds for us too",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Using the targets package</span>"
+    ]
+  },
+  {
+    "objectID": "using-targets.html#writing-your-target-script-file-_targets.r",
+    "href": "using-targets.html#writing-your-target-script-file-_targets.r",
+    "title": "4  Using the targets package",
+    "section": "4.2 Writing your target script file, _targets.R",
+    "text": "4.2 Writing your target script file, _targets.R",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Using the targets package</span>"
+    ]
+  },
+  {
+    "objectID": "using-targets.html#running-your-pipeline",
+    "href": "using-targets.html#running-your-pipeline",
+    "title": "4  Using the targets package",
+    "section": "4.3 Running your pipeline",
+    "text": "4.3 Running your pipeline",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Using the targets package</span>"
+    ]
+  },
+  {
+    "objectID": "multiple-scenarios.html",
+    "href": "multiple-scenarios.html",
+    "title": "5  Simulations with multiple scenarios",
+    "section": "",
+    "text": "5.1 Adding more data generating processes",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Simulations with multiple scenarios</span>"
+    ]
+  },
+  {
+    "objectID": "multiple-scenarios.html#adding-more-estimators",
+    "href": "multiple-scenarios.html#adding-more-estimators",
+    "title": "5  Simulations with multiple scenarios",
+    "section": "5.2 Adding more estimators",
+    "text": "5.2 Adding more estimators",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Simulations with multiple scenarios</span>"
+    ]
+  },
+  {
+    "objectID": "multiple-scenarios.html#visualising-the-results-of-a-simulation",
+    "href": "multiple-scenarios.html#visualising-the-results-of-a-simulation",
+    "title": "5  Simulations with multiple scenarios",
+    "section": "5.3 Visualising the results of a simulation",
+    "text": "5.3 Visualising the results of a simulation",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Simulations with multiple scenarios</span>"
+    ]
+  },
+  {
+    "objectID": "parallel-processing.html",
+    "href": "parallel-processing.html",
+    "title": "6  Speeding it up with parallel processing",
+    "section": "",
+    "text": "6.1 Multi-core processing on a single computer\nGIVE IT MOAR CORES, MAKE IT MOAR FAST\nUsing targets with the crew package",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Speeding it up with parallel processing</span>"
+    ]
+  },
+  {
+    "objectID": "parallel-processing.html#taking-advantage-of-high-performance-computing-clusters",
+    "href": "parallel-processing.html#taking-advantage-of-high-performance-computing-clusters",
+    "title": "6  Speeding it up with parallel processing",
+    "section": "6.2 Taking advantage of high-performance computing clusters",
+    "text": "6.2 Taking advantage of high-performance computing clusters",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Speeding it up with parallel processing</span>"
+    ]
+  },
+  {
+    "objectID": "parallel-processing.html#automatic-switching",
+    "href": "parallel-processing.html#automatic-switching",
+    "title": "6  Speeding it up with parallel processing",
+    "section": "6.3 Automatic switching",
+    "text": "6.3 Automatic switching",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Speeding it up with parallel processing</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using\nsimulation studies to evaluate statistical methods. Statistics in\nMedicine, 38(11), 2074–2102. https://doi.org/10.1002/sim.8086",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
